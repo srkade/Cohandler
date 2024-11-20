@@ -1,17 +1,36 @@
 // src/pages/Login.jsx
-import React from "react";
+import React, { useState } from "react";
+import { auth } from "../firebaseConfig";
+import { signInWithEmailAndPassword } from "firebase/auth";
 
 const Login = () => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+
+  const handleLogin = async (e) => {
+    e.preventDefault();
+    setError("");
+    try {
+      await signInWithEmailAndPassword(auth, email, password);
+      alert("Login successful!");
+    } catch (error) {
+      setError(error.message);
+    }
+  };
+
   return (
-    <div className="flex justify-center items-start pt-4 min-h-screen bg-blue-100">
+    <div className="flex justify-center items-center min-h-screen bg-blue-100">
       <div className="bg-white p-8 rounded shadow-md w-full max-w-md">
         <h2 className="text-2xl font-bold text-center mb-6">Login</h2>
-        <form>
+        {error && <p className="text-red-500">{error}</p>}
+        <form onSubmit={handleLogin}>
           <div className="mb-4">
-            <label className="block text-gray-700">Number</label>
+            <label className="block text-gray-700">Email</label>
             <input
-              type="text"
-              placeholder="Enter your number"
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
               className="w-full p-3 border rounded-lg mt-2"
             />
           </div>
@@ -19,24 +38,17 @@ const Login = () => {
             <label className="block text-gray-700">Password</label>
             <input
               type="password"
-              placeholder="Enter your password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
               className="w-full p-3 border rounded-lg mt-2"
             />
           </div>
-          <button className="w-full bg-green-500 text-white py-2 rounded-lg font-semibold hover:bg-green-600">
+          <button
+            type="submit"
+            className="w-full bg-green-500 text-white py-2 rounded-lg font-semibold hover:bg-green-600"
+          >
             Login
           </button>
-          <div className="flex justify-between items-center mt-4">
-            <a href="/register" className="text-blue-500 hover:underline">
-              Register
-            </a>
-            <a
-              href="/forgot-password"
-              className="text-blue-500 hover:underline"
-            >
-              Forgot Password?
-            </a>
-          </div>
         </form>
       </div>
     </div>
