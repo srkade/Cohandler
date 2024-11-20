@@ -2,11 +2,13 @@
 import React, { useState } from "react";
 import { auth } from "../firebaseConfig";
 import { signInWithEmailAndPassword } from "firebase/auth";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const navigate = useNavigate(); // For navigation
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -14,6 +16,7 @@ const Login = () => {
     try {
       await signInWithEmailAndPassword(auth, email, password);
       alert("Login successful!");
+      navigate("/dashboard"); // Redirect to dashboard
     } catch (error) {
       setError(error.message);
     }
