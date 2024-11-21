@@ -27,10 +27,11 @@ const Register = () => {
       const user = userCredential.user;
 
       // Store additional user data in Firestore
-      await setDoc(doc(db, "users", user.uid), {
-        fullName: fullName,
-        email: email,
-        number: number,
+      await setDoc(doc(db, "users", userCredential.user.uid), {
+        name: fullName,
+        email,
+        number,
+        bookings: [], // Initialize with no bookings
       });
 
       alert("Registration successful!");
