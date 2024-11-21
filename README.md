@@ -11,7 +11,7 @@ A comprehensive management system for co-working spaces that allows users to boo
 - [Available Scripts](#available-scripts)
 - [Project Structure](#project-structure)
 - [Contributing](#contributing)
-- [License](#license)
+
 
 ---
 
