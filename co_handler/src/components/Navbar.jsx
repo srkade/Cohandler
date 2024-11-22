@@ -44,7 +44,7 @@ const Navbar = () => {
             <div className="relative">
               {/* User Profile Icon */}
               <img
-                src="https://via.placeholder.com/40" // Replace with user avatar or default image
+                src=""
                 alt="User Avatar"
                 className="w-10 h-10 rounded-full cursor-pointer"
                 onClick={() => navigate("/dashboard")}

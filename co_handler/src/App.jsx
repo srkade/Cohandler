@@ -10,6 +10,7 @@ import Login from "./pages/Login";
 import Dashboard from "./pages/Dashboard";
 import { AuthProvider } from "./context/AuthContext";
 import ProtectedRoute from "./components/ProtectedRoute";
+import BookingForm from "./components/BookingForm";
 
 const App = () => {
   return (
@@ -29,6 +30,7 @@ const App = () => {
               </ProtectedRoute>
             }
           />
+          <Route path="/booking" element={<BookingForm />} />
         </Routes>
       </MainLayout>
     </AuthProvider>
