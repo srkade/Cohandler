@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { auth, db } from "../firebaseConfig";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { doc, setDoc } from "firebase/firestore";
+import { useNavigate } from "react-router-dom";
 
 const Register = () => {
   const [fullName, setFullName] = useState("");
@@ -10,6 +11,7 @@ const Register = () => {
   const [number, setNumber] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const navigate = useNavigate();
 
   const handleRegister = async (e) => {
     e.preventDefault();
@@ -25,20 +27,22 @@ const Register = () => {
       const user = userCredential.user;
 
       // Store additional user data in Firestore
-      await setDoc(doc(db, "users", user.uid), {
-        fullName: fullName,
-        email: email,
-        number: number,
+      await setDoc(doc(db, "users", userCredential.user.uid), {
+        name: fullName,
+        email,
+        number,
+        bookings: [], // Initialize with no bookings
       });
 
       alert("Registration successful!");
+      navigate("/dashboard"); //redirect to dashboard
     } catch (error) {
       setError(error.message);
     }
   };
 
   return (
-    <div className="flex justify-center items-center min-h-screen bg-blue-100">
+    <div className="flex justify-center items-start pt-2 min-h-screen bg-blue-100">
       <div className="bg-white p-8 rounded shadow-md w-full max-w-md">
         <h2 className="text-2xl font-bold text-center mb-6">Register</h2>
         {error && <p className="text-red-500">{error}</p>}
