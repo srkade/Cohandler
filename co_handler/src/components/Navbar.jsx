@@ -8,7 +8,9 @@ const Navbar = () => {
   const { user } = useAuth(); // Access the logged-in user
   const navigate = useNavigate();
   const auth = getAuth();
+   
 
+  
   const handleLogout = async () => {
     try {
       await signOut(auth);
