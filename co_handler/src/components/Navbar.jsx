@@ -3,14 +3,14 @@ import React from "react";
 import { useAuth } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
 import { getAuth, signOut } from "firebase/auth";
+import { UserIcon } from '@heroicons/react/solid';
+
 
 const Navbar = () => {
   const { user } = useAuth(); // Access the logged-in user
   const navigate = useNavigate();
   const auth = getAuth();
-   
 
-  
   const handleLogout = async () => {
     try {
       await signOut(auth);
@@ -45,12 +45,8 @@ const Navbar = () => {
           {user ? (
             <div className="relative">
               {/* User Profile Icon */}
-              <img
-                src=""
-                alt="User Avatar"
-                className="w-10 h-10 rounded-full cursor-pointer"
-                onClick={() => navigate("/dashboard")}
-              />
+              <UserIcon className="w-7 h-7 text-blue-200 rounded-full cursor-pointer" onClick={() => navigate("/dashboard")} />
+              
               {/* Dropdown for Logout */}
               <div className="absolute right-0 mt-2 bg-white shadow-lg rounded hidden group-hover:block">
                 <button

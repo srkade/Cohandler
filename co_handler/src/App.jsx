@@ -8,15 +8,15 @@ import Plans from "./pages/Plans";
 import Register from "./pages/Register";
 import Login from "./pages/Login";
 import Dashboard from "./pages/Dashboard";
-import { AuthProvider } from "./context/AuthContext";
+
 import ProtectedRoute from "./components/ProtectedRoute";
 import BookingForm from "./components/BookingForm";
 
 const App = () => {
   return (
-    <AuthProvider>
-      <MainLayout>
-        <Routes>
+    <MainLayout>
+      <Routes>
+       
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<About />} />
           <Route path="/plans" element={<Plans />} />
@@ -31,9 +31,9 @@ const App = () => {
             }
           />
           <Route path="/booking" element={<BookingForm />} />
-        </Routes>
-      </MainLayout>
-    </AuthProvider>
+        
+      </Routes>
+    </MainLayout>
   );
 };
 

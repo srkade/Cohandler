@@ -3,7 +3,6 @@ import React, { useState } from "react";
 import { auth, db } from "../firebaseConfig";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { doc, setDoc } from "firebase/firestore";
-import { useNavigate } from "react-router-dom";
 
 const Register = () => {
   const [fullName, setFullName] = useState("");
@@ -11,7 +10,6 @@ const Register = () => {
   const [number, setNumber] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
-  const navigate = useNavigate();
 
   const handleRegister = async (e) => {
     e.preventDefault();
@@ -22,20 +20,18 @@ const Register = () => {
       const userCredential = await createUserWithEmailAndPassword(
         auth,
         email,
-        password
+        password,
       );
       const user = userCredential.user;
 
       // Store additional user data in Firestore
-      await setDoc(doc(db, "users", userCredential.user.uid), {
-        name: fullName,
-        email,
-        number,
-        bookings: [], // Initialize with no bookings
+      await setDoc(doc(db, "users", user.uid), {
+        fullName: fullName,
+        email: email,
+        number: number,
       });
 
       alert("Registration successful!");
-      navigate("/dashboard"); //redirect to dashboard
     } catch (error) {
       setError(error.message);
     }
